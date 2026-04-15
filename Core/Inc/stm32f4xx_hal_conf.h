@@ -41,6 +41,18 @@ extern "C" {
 /* SysTick priority — set to lowest; FreeRTOS takes over SysTick anyway */
 #define TICK_INT_PRIORITY            15U
 
+/* ── assert_param ─────────────────────────────────────────────────────────
+ * Required by all HAL source files. Without USE_FULL_ASSERT it is a no-op.
+ * Must be defined here (in hal_conf.h) — this is where the HAL expects it.
+ */
+#ifdef USE_FULL_ASSERT
+  #define assert_param(expr) \
+      ( (expr) ? (void)0U : assert_failed((uint8_t *)__FILE__, __LINE__) )
+  void assert_failed(uint8_t *file, uint32_t line);
+#else
+  #define assert_param(expr) ((void)0U)
+#endif
+
 /* ── Include HAL driver headers for enabled modules ─────────────────────── */
 #include "stm32f4xx_hal_rcc.h"
 #include "stm32f4xx_hal_gpio.h"

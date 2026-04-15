@@ -26,7 +26,9 @@ add_compile_options(
     -fdata-sections
     -ffunction-sections
     -fno-exceptions
-    $<$<CONFIG:Debug>:-Og -g3 -ggdb>
+    $<$<CONFIG:Debug>:-Og>
+    $<$<CONFIG:Debug>:-g3>
+    $<$<CONFIG:Debug>:-ggdb>
     $<$<CONFIG:Release>:-O2>
 )
 

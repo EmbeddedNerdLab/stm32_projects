@@ -19,6 +19,10 @@ MEMORY
     SRAM  (xrw) : ORIGIN = 0x20000000, LENGTH = 128K
 }
 
+/* Initial stack pointer: top of SRAM (end of 128KB region = 0x20020000).
+ * startup_stm32f446xx.s loads _estack into MSP as the first vector entry. */
+_estack = ORIGIN(SRAM) + LENGTH(SRAM);
+
 SECTIONS
 {
     /* Interrupt vector table — must be first in Flash */
