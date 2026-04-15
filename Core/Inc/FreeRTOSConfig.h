@@ -11,7 +11,13 @@
 
 /* ── Clocks ──────────────────────────────────────────────────────────────── */
 #define configCPU_CLOCK_HZ              ( 180000000UL )
-#define configSYSTICK_CLOCK_HZ          ( 180000000UL )
+/* NOTE: do NOT define configSYSTICK_CLOCK_HZ.
+ * When defined, the ARM_CM4F port.c sets portNVIC_SYSTICK_CLK_BIT_CONFIG=0
+ * which selects the external reference clock (HCLK/8 = 22.5 MHz), while the
+ * reload value is still calculated from configCPU_CLOCK_HZ (180 MHz).
+ * That mismatch makes ticks 8x too slow (8 ms instead of 1 ms).
+ * Leaving it undefined makes the port default to configCPU_CLOCK_HZ and use
+ * CLKSOURCE=1 (processor clock = HCLK), giving correct 1 ms ticks. */
 
 /* ── Scheduler ───────────────────────────────────────────────────────────── */
 #define configUSE_PREEMPTION            1
