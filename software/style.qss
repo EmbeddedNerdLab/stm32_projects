@@ -1,0 +1,156 @@
+/* ── Global ─────────────────────────────────────────────────────────────── */
+QMainWindow, QWidget {
+    background-color: #1a1a2e;
+    color: #e0e0e0;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 13px;
+}
+
+QSplitter::handle {
+    background-color: #0f3460;
+    width: 2px;
+    height: 2px;
+}
+
+/* ── Top bar ────────────────────────────────────────────────────────────── */
+QFrame#topBar {
+    background-color: #16213e;
+    border-bottom: 1px solid #0f3460;
+    border-radius: 0px;
+}
+
+QLabel#title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #00d4ff;
+    letter-spacing: 1px;
+}
+
+QLabel#statusDotOn  { color: #51cf66; font-size: 16px; }
+QLabel#statusDotOff { color: #555555; font-size: 16px; }
+
+/* ── Buttons ────────────────────────────────────────────────────────────── */
+QPushButton {
+    background-color: #0f3460;
+    color: #e0e0e0;
+    border: 1px solid #1a5276;
+    border-radius: 4px;
+    padding: 5px 12px;
+}
+QPushButton:hover  { background-color: #1a5276; }
+QPushButton:pressed { background-color: #0a2540; }
+
+QPushButton#connectBtn {
+    background-color: #0f3460;
+    font-weight: bold;
+}
+QPushButton#connectBtn:hover { background-color: #e94560; border-color: #e94560; }
+
+QPushButton#logBtn {
+    background-color: #0f3460;
+    font-weight: bold;
+    color: #555555;
+}
+QPushButton#logBtn:hover { background-color: #1a5276; }
+
+/* ── ComboBox ───────────────────────────────────────────────────────────── */
+QComboBox {
+    background-color: #16213e;
+    color: #e0e0e0;
+    border: 1px solid #0f3460;
+    border-radius: 4px;
+    padding: 4px 8px;
+}
+QComboBox::drop-down { border: none; }
+QComboBox QAbstractItemView {
+    background-color: #16213e;
+    color: #e0e0e0;
+    selection-background-color: #0f3460;
+    border: 1px solid #0f3460;
+}
+
+/* ── Value cards ────────────────────────────────────────────────────────── */
+QFrame#card {
+    background-color: #16213e;
+    border: 1px solid #0f3460;
+    border-radius: 8px;
+}
+
+QLabel#cardTitle {
+    color: #888888;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+QLabel#cardName {
+    color: #aaaaaa;
+    font-size: 12px;
+}
+
+/* ── Table ──────────────────────────────────────────────────────────────── */
+QTableWidget#logTable {
+    background-color: #16213e;
+    gridline-color: #1e2d4a;
+    border: 1px solid #0f3460;
+    border-radius: 4px;
+    color: #cccccc;
+    font-size: 12px;
+}
+
+QTableWidget#logTable::item:selected {
+    background-color: #0f3460;
+}
+
+QHeaderView::section {
+    background-color: #0f3460;
+    color: #aaaaaa;
+    border: none;
+    border-right: 1px solid #1a1a2e;
+    padding: 4px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+/* ── ScrollBar ──────────────────────────────────────────────────────────── */
+QScrollBar:vertical {
+    background: #16213e;
+    width: 8px;
+    border-radius: 4px;
+}
+QScrollBar::handle:vertical {
+    background: #0f3460;
+    border-radius: 4px;
+    min-height: 20px;
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical { height: 0; }
+
+QScrollBar:horizontal {
+    background: #16213e;
+    height: 8px;
+    border-radius: 4px;
+}
+QScrollBar::handle:horizontal {
+    background: #0f3460;
+    border-radius: 4px;
+    min-width: 20px;
+}
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal { width: 0; }
+
+/* ── Time label ─────────────────────────────────────────────────────────── */
+QLabel#timeLabel {
+    color: #74c0fc;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: "Consolas", monospace;
+}
+
+/* ── Gear button ────────────────────────────────────────────────────────── */
+QPushButton#gearBtn {
+    background-color: transparent;
+    color: #444466;
+    border: none;
+    font-size: 12px;
+    padding: 0;
+}
+QPushButton#gearBtn:hover { color: #aaaacc; }
