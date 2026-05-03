@@ -75,6 +75,9 @@ DRV_Status_t MPU6050_ReadAll(MPU6050_Handle_t *h, MPU6050_Data_t *data)
     if (HAL_I2C_Mem_Read(h->hi2c, h->i2c_addr, REG_ACCEL_XOUT,
                          I2C_MEMADD_SIZE_8BIT, buf, sizeof(buf),
                          DRV_I2C_TIMEOUT_MS) != HAL_OK) {
+        /* Clear any I2C error flags so the peripheral is ready for the next attempt */
+        if (HAL_I2C_GetState(h->hi2c) == HAL_I2C_STATE_ERROR)
+            __HAL_I2C_CLEAR_FLAG(h->hi2c, I2C_FLAG_AF | I2C_FLAG_ARLO | I2C_FLAG_BERR);
         DRV_MUTEX_GIVE(h->mutex);
         return DRV_ERR;
     }

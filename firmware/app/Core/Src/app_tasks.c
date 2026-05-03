@@ -87,11 +87,24 @@ void vSensorReadTask(void *pvParameters)
     bool buzzer_active = false;
 
     TickType_t xLastWakeTime = xTaskGetTickCount();
+    uint8_t    mpu_fail_count = 0;
 
     for (;;) {
         xTaskDelayUntil(&xLastWakeTime, pdMS_TO_TICKS(50));
 
-        MPU6050_ReadAll(&hMpu, &imu);
+        if (MPU6050_ReadAll(&hMpu, &imu) != DRV_OK) {
+            if (++mpu_fail_count >= 3) {
+                /* I2C bus may be stuck — reset peripheral then reinit sensor */
+                HAL_I2C_DeInit(hI2C);
+                HAL_I2C_Init(hI2C);
+                MPU6050_Init(&hMpu, hI2C, xI2CMutex);
+                mpu_fail_count = 0;
+                uart_printf("MPU6050: I2C recovery\r\n");
+            }
+        } else {
+            mpu_fail_count = 0;
+        }
+
         BME280_ReadAll(&hBme, &env);
         BH1750_ReadRaw(&hBh, &raw_lux);
 

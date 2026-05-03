@@ -794,7 +794,11 @@ void MainWindow::onRecord(SensorRecord rec)
     const double accel_pitch = atan2(-ax_g, sqrt(ay_g*ay_g + az_g*az_g)) * RAD2DEG;
     m_roll  = ALPHA * (m_roll  + gx_dps * DT) + (1.0 - ALPHA) * accel_roll;
     m_pitch = ALPHA * (m_pitch + gy_dps * DT) + (1.0 - ALPHA) * accel_pitch;
-    m_yaw  += gz_dps * DT;
+    // Yaw has no accelerometer reference — integrate only above a deadband
+    // to prevent gyro bias from accumulating when the device is stationary.
+    const double gyro_mag = sqrt(gx_dps*gx_dps + gy_dps*gy_dps + gz_dps*gz_dps);
+    if (gyro_mag > 1.0)
+        m_yaw += gz_dps * DT;
 
     // Start timer on first sample; update every record
     if (!m_elapsed.isValid())
