@@ -89,7 +89,7 @@ void FlashWorker::run()
         return;
     }
 
-    quint16 hdr_crc_calc = crc16(raw.left(26));
+    quint16 hdr_crc_calc = crc16(raw.left(24));
     if (hdr_crc_calc != hdr_crc_stored) {
         emit finished(false, "Header CRC mismatch — .enc file is corrupted");
         return;
