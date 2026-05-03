@@ -33,3 +33,6 @@ Desktop.ini
 
 # macOS
 .DS_Store
+
+# Qt installer log
+aqtinstall.log
