@@ -22,7 +22,7 @@ FlashDialog::FlashDialog(const QString &portName, QWidget *parent)
     // File picker row
     auto *fileRow = new QHBoxLayout;
     m_filePath = new QLineEdit;
-    m_filePath->setPlaceholderText("Select firmware .bin file...");
+    m_filePath->setPlaceholderText("Select encrypted firmware .enc file...");
     m_browseBtn = new QPushButton("Browse...");
     m_browseBtn->setFixedWidth(90);
     fileRow->addWidget(m_filePath);
@@ -73,8 +73,8 @@ FlashDialog::~FlashDialog()
 void FlashDialog::onBrowse()
 {
     QString path = QFileDialog::getOpenFileName(
-        this, "Select Firmware Binary", QString(),
-        "Binary files (*.bin);;All files (*)");
+        this, "Select Encrypted Firmware", QString(),
+        "Encrypted firmware (*.enc);;All files (*)");
     if (!path.isEmpty())
         m_filePath->setText(path);
 }

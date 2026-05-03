@@ -183,7 +183,7 @@ def write_enc_file(path: str, fw_data: bytes):
     with open(path, 'wb') as f:
         f.write(hdr)
         f.write(enc)
-    print(f"Encrypted {fw_size} bytes → {path}")
+    print(f"Encrypted {fw_size} bytes -> {path}")
     print(f"  Nonce:   {nonce.hex()}")
     print(f"  CRC32:   0x{fw_crc:08X}")
 

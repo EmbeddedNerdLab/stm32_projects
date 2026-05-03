@@ -179,11 +179,19 @@ set_target_properties(${PROJECT_NAME}.elf PROPERTIES
     LINK_DEPENDS ${LINKER_SCRIPT}
 )
 
-# ── Post-build: .bin + size report ───────────────────────────────────────────
+# ── Post-build: encrypt firmware, delete plaintext .bin ──────────────────────
+find_package(Python3 COMPONENTS Interpreter REQUIRED)
+
 add_custom_command(TARGET ${PROJECT_NAME}.elf POST_BUILD
     COMMAND ${CMAKE_OBJCOPY} -O binary
             $<TARGET_FILE:${PROJECT_NAME}.elf>
             ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.bin
     COMMAND ${CMAKE_SIZE} --format=berkeley $<TARGET_FILE:${PROJECT_NAME}.elf>
-    COMMENT "Generating binary and printing size"
+    COMMAND ${Python3_EXECUTABLE}
+            ${CMAKE_SOURCE_DIR}/../tools/fw_encrypt.py
+            encrypt
+            ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.bin
+            ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.enc
+    COMMAND ${CMAKE_COMMAND} -E rm ${CMAKE_BINARY_DIR}/${PROJECT_NAME}.bin
+    COMMENT "Generating binary, encrypting to .enc, removing plaintext .bin"
 )
